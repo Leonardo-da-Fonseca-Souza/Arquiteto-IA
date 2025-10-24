@@ -1,0 +1,9 @@
+{
+   "inputUri":"gs://spls/gsp154/video/train.mp4",
+   "features": [
+       "LABEL_DETECTION"
+   ]
+}
+
+// inputUri: Substitua gs://spls/gsp154/video/train.mp4 pelo URI do seu vídeo no Google Cloud Storage.
+// features: Especifica os tipos de análise que você deseja realizar. Neste exemplo, estamos usando LABEL_DETECTION para detectar rótulos ou objetos no vídeo. 
