@@ -1,0 +1,33 @@
+# Google Cloud keys & credentials
+*.json
+*service-account*.json
+client_secrets*.json
+
+# Environment variables
+.env
+.env.*
+*.env
+
+# Python virtual environments and caches
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+build/
+
+# OS & IDE temporary files
+.DS_Store
+Thumbs.db
+.gcpignore
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

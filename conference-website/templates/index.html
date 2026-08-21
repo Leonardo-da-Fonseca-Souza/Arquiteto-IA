@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.name }} - Conferência de Tecnologia</title>
+    <meta name="description" content="Participe do Google Cloud Summit. Uma conferência técnica de um dia reunindo especialistas para discutir infraestrutura, desenvolvimento serverless, engenharia de dados e inteligência artificial.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-glow bg-glow-blue"></div>
+    <div class="bg-glow bg-glow-red"></div>
+    <div class="bg-glow bg-glow-yellow"></div>
+
+    <header class="header">
+        <div class="container">
+            <div class="brand">
+                <span class="logo-dot logo-blue"></span>
+                <span class="logo-dot logo-red"></span>
+                <span class="logo-dot logo-yellow"></span>
+                <span class="logo-dot logo-green"></span>
+                <span class="brand-text">Google Cloud Summit</span>
+            </div>
+            
+            <div class="hero-content">
+                <span class="badge">Conferência Técnica de 1 Dia</span>
+                <h1>{{ event.name }}</h1>
+                <p class="tagline">Explore o futuro da tecnologia em nuvem, IA generativa e modernização de infraestrutura com os principais especialistas do mercado.</p>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <svg class="meta-icon icon-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span id="event-date">{{ event.date }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg class="meta-icon icon-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>{{ event.location }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <!-- Search and Filter Panel -->
+        <section class="filter-panel" aria-label="Painel de Filtros e Busca">
+            <div class="search-box-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-input" placeholder="Buscar por título, palestrante ou tecnologia..." aria-label="Buscar palestras">
+            </div>
+            
+            <div class="category-filters" role="group" aria-label="Filtrar por Categoria">
+                <button class="filter-btn active" data-category="0">Todas as Atividades</button>
+                <button class="filter-btn" data-category="1">Cloud & Infra</button>
+                <button class="filter-btn" data-category="2">Data & AI</button>
+            </div>
+        </section>
+
+        <!-- Schedule / Timeline Section -->
+        <section class="schedule-section">
+            <h2 class="section-title">Programação do Evento</h2>
+            
+            <div class="timeline" id="talks-container">
+                {% for talk in talks %}
+                <article class="timeline-card {% if talk.id == 99 %}lunch-break{% else %}talk-card{% endif %}" 
+                         data-id="{{ talk.id }}" 
+                         data-category="{{ talk.category_id }}"
+                         id="talk-{{ talk.id }}">
+                    
+                    <div class="card-time">
+                        <span class="time-badge">{{ talk.time }}</span>
+                    </div>
+                    
+                    <div class="card-indicator {% if talk.category_id == 1 %}ind-blue{% elif talk.category_id == 2 %}ind-green{% else %}ind-yellow{% endif %}"></div>
+                    
+                    <div class="card-body">
+                        <div class="card-header">
+                            {% if talk.category_id > 0 %}
+                            <span class="category-badge {% if talk.category_id == 1 %}badge-blue{% else %}badge-green{% endif %}">
+                                {{ talk.category_name }}
+                            </span>
+                            {% endif %}
+                            <h3 class="talk-title">{{ talk.title }}</h3>
+                        </div>
+                        
+                        <p class="talk-description">{{ talk.description }}</p>
+                        
+                        {% if talk.speakers %}
+                        <div class="speakers-section">
+                            <span class="speakers-label">Palestrante(s):</span>
+                            <div class="speakers-list">
+                                {% for speaker in talk.speakers %}
+                                <a href="{{ speaker.linkedin }}" target="_blank" rel="noopener noreferrer" class="speaker-chip" title="Ver LinkedIn de {{ speaker.first_name }} {{ speaker.last_name }}">
+                                    <span class="speaker-avatar">
+                                        {{ speaker.first_name[0] }}{{ speaker.last_name[0] }}
+                                    </span>
+                                    <span class="speaker-name">{{ speaker.first_name }} {{ speaker.last_name }}</span>
+                                    <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+
+            <!-- No results message -->
+            <div id="no-results" class="no-results hidden">
+                <svg class="no-results-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+                <p>Nenhuma palestra encontrada para os critérios informados.</p>
+                <button id="clear-filters-btn" class="clear-btn">Limpar busca e filtros</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Google Cloud Summit. Todos os direitos reservados. Este é um evento fictício para fins de demonstração.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
