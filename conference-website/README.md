@@ -8,6 +8,10 @@ Website oficial responsivo e dinâmico da conferência **Google Cloud Summit 202
 
 A arquitetura do projeto segue um modelo clássico de aplicação web conteneirizada de camada única/dupla (SPA-like frontend que consome uma API de backend Flask). É ideal para hospedagem serverless de alta escalabilidade utilizando o **Google Cloud Run**.
 
+### 🎨 Design System & Especificação de Interface
+- **Protótipo Interativo:** Desenvolvido no Figma Dev Mode como Single Source of Truth (SSoT) para a experiência visual e fluxo da aplicação.
+- **Acesso ao Design:** [![Figma](https://img.shields.io/badge/Figma-Prot%C3%B3tipo_Google_Cloud_Summit-F24E1E?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/community/file/1672641463604834469)
+
 ### Diagrama da Solução
 
 ```mermaid
@@ -26,13 +30,13 @@ graph TD
 ### Papel de Cada Camada no Ecossistema
 
 1. **Frontend (Camada de Apresentação):**
-   - Composta por [`index.html`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/templates/index.html), [`style.css`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/static/style.css) e [`script.js`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/static/script.js).
+   - Composta por [`index.html`](templates/index.html), [`style.css`](static/style.css) e [`script.js`](static/script.js).
    - Fornece um painel interativo (com suporte a Glassmorphism e Dark Mode) onde o usuário pode realizar filtros e pesquisas em tempo real de forma assíncrona.
 2. **Backend (Camada de Aplicação):**
-   - Gerenciado pelo script [`app.py`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/app.py) que expõe rotas HTTP usando o framework Flask.
+   - Gerenciado pelo script [`app.py`](app.py) que expõe rotas HTTP usando o framework Flask.
    - Fornece renderização no lado do servidor para a página principal (`/`) e expõe um endpoint REST de busca dinâmica (`/api/talks`).
 3. **Infraestrutura / Deployment:**
-   - O projeto é empacotado em uma imagem de contêiner ultraleve a partir do [`Dockerfile`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/Dockerfile).
+   - O projeto é empacotado em uma imagem de contêiner ultraleve a partir do [`Dockerfile`](Dockerfile).
    - O deploy é orquestrado para o **Google Cloud Run**, permitindo auto-scaling de zero a infinito, otimizando latência e custo.
 
 ---
@@ -110,14 +114,14 @@ source venv/bin/activate
 
 ### Passo 2: Instalar Dependências
 
-Com o ambiente virtual ativado, instale as dependências contidas no [`requirements.txt`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/requirements.txt):
+Com o ambiente virtual ativado, instale as dependências contidas no [`requirements.txt`](requirements.txt):
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Passo 3: Criar Arquivo de Configurações Locais
 
-Copie o arquivo [`.env.example`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/.env.example) para `.env` e configure conforme seu ambiente:
+Copie o arquivo [`.env.example`](.env.example) para `.env` e configure conforme seu ambiente:
 ```bash
 cp .env.example .env
 ```
@@ -132,7 +136,7 @@ Acesse a aplicação no navegador em `http://localhost:8080`.
 
 ### Passo 5: Executar Testes Automatizados
 
-O projeto vem com cobertura de testes unitários em [`test_app.py`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/test_app.py). Execute usando o comando:
+O projeto vem com cobertura de testes unitários em [`test_app.py`](test_app.py). Execute usando o comando:
 ```bash
 pytest
 ```
@@ -143,7 +147,7 @@ pytest
 
 ### Build Local da Imagem Docker
 
-Para validar o contêiner localmente, execute o build a partir do [`Dockerfile`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/Dockerfile):
+Para validar o contêiner localmente, execute o build a partir do [`Dockerfile`](Dockerfile):
 ```bash
 docker build -t gcr.io/seu-projeto-id/conference-website:latest .
 ```
@@ -176,7 +180,7 @@ O script obterá o ID do seu projeto padrão configurado na CLI da Google Cloud 
 Para evoluir este sistema para nível empresarial, considere os seguintes pontos de arquitetura:
 
 1. **Separação de Dados (Banco de Dados)**
-   - Atualmente, as palestras e horários estão em memória dentro de `TALKS_DATABASE` no arquivo [`app.py`](file:///c:/Users/Usuário/Documents/antigravity-git/agy2-pprojects/conference-website/app.py). Recomenda-se migrar estes dados para o **Google Cloud Firestore** (NoSQL rápido e escalável) ou **Cloud SQL (PostgreSQL)** para permitir a edição em tempo real sem redeploys.
+   - Atualmente, as palestras e horários estão em memória dentro de `TALKS_DATABASE` no arquivo [`app.py`](app.py). Recomenda-se migrar estes dados para o **Google Cloud Firestore** (NoSQL rápido e escalável) ou **Cloud SQL (PostgreSQL)** para permitir a edição em tempo real sem redeploys.
 2. **Integração de Cache com Cloud CDN**
    - Por ser um site informativo de alta demanda no dia do evento, a integração com o **Google Cloud CDN** ou cache em nível de borda (Edge Caching) nas rotas estáticas (`/` e `/api/talks`) mitigaria os custos com processamento do Cloud Run e melhoraria o tempo de resposta global.
 3. **Gerenciamento Seguro de Segredos com GCP Secret Manager**
