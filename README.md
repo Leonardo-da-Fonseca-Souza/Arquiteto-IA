@@ -47,8 +47,10 @@ Arquiteto-IA/
 ## 🧩 Componentes Principais & Módulos
 
 ### 1. 🚀 Projetos & Soluções Práticas
-- **`conference-website/`**: Website oficial e responsivo para o *Google Cloud Summit 2026*. Desenvolvido em Flask, otimizado para deploy conteneirizado no **Google Cloud Run** via Artifact Registry, contando com testes automatizados e pipeline de CI/CD.
+- **`conference-website/`**: Website demonstrativo e responsivo desenvolvido como conceito para o *Google Cloud Summit 2026*. Criado em Flask, otimizado para deploy conteneirizado no **Google Cloud Run** via Artifact Registry, contando com testes automatizados e pipeline de CI/CD.
+  - 🎨 **UI/UX Design:** [![Figma](https://img.shields.io/badge/Figma-Prot%C3%B3tipo_Google_Cloud_Summit-F24E1E?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/community/file/1672641463604834469)
 - **`to-do-list-project-v01/`**: Aplicação de gerenciamento de tarefas de alta performance. Serviu como laboratório para otimização de rotinas síncronas vs. assíncronas concorrentes e demonstração de agentes de revisão automatizada de código (`.agents/`).
+  - 🎨 **UI/UX Design:** [![Figma](https://img.shields.io/badge/Figma-Prot%C3%B3tipo_To--Do_List-F24E1E?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/community/file/1672445777034034307)
 
 ### 2. 🛡️ Governança e Operações (`.antigravity/`)
 - **`workflows/`**: Automações agênticas executadas via Antigravity CLI para CI/CD, testes contínuos e auditorias de código.
