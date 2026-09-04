@@ -53,11 +53,15 @@ graph TD
 ```
 
 ### Papel de Cada Camada
-- **Interface Premium (Frontend)**: Localizada em [`templates/index.html`](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/templates/index.html), utiliza HTML5 semântico e CSS3 customizado com efeito *glassmorphism*, variáveis de cor modernas (Plus Jakarta Sans) e controles dinâmicos de estado sem dependências de frameworks JS externos.
-- **Flask App (Backend)**: Executado no [`app.py`](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/app.py), gerencia o roteamento HTTP das ações CRUD (adicionar, alternar status, editar e deletar) e conexões com o SQLite.
-- **SQLite (Persistência)**: Armazena as tarefas no arquivo local `todo.db` estruturado na tabela `tasks` criada automaticamente através de [`init_db()`](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/app.py#L12).
-- **Sandbox Comparativo**: Os scripts [`demo_bad_code.py`](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/demo_bad_code.py) (síncrono ineficiente) e [`review_demo_bad_code.py`](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/review_demo_bad_code.py) (assíncrono concorrente com loops paralelos e mapeamento hash $O(1)$) atuam isoladamente como um laboratório de testes de desempenho de algoritmos.
+- **Interface Premium (Frontend)**: Localizada em [`templates/index.html`](./templates/index.html), utiliza HTML5 semântico e CSS3 customizado com efeito *glassmorphism*, variáveis de cor modernas (Plus Jakarta Sans) e controles dinâmicos de estado sem dependências de frameworks JS externos.
+- **Flask App (Backend)**: Executado no [`app.py`](./app.py), gerencia o roteamento HTTP das ações CRUD (adicionar, alternar status, editar e deletar) e conexões com o SQLite.
+- **SQLite (Persistência)**: Armazena as tarefas no arquivo local `todo.db` estruturado na tabela `tasks` criada automaticamente através de [`init_db()`](./app.py#L12).
+- **Sandbox Comparativo**: Os scripts [`demo_bad_code.py`](./demo_bad_code.py) (síncrono ineficiente) e [`review_demo_bad_code.py`](./review_demo_bad_code.py) (assíncrono concorrente com loops paralelos e mapeamento hash $O(1)$) atuam isoladamente como um laboratório de testes de desempenho de algoritmos.
 - **Serviços GCP (Prontidão de Nuvem)**: Configurações integradas via arquivo `.env` para exportação analítica e deploy automatizado em microsserviço serverless.
+
+### 🎨 Design System & Especificação de Interface
+- **Protótipo Interativo:** Desenvolvido no Figma Dev Mode como Single Source of Truth (SSoT) para a experiência visual e fluxo da aplicação.
+- **Acesso ao Design:** [![Figma](https://img.shields.io/badge/Figma-Prot%C3%B3tipo_To--Do_List-F24E1E?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/community/file/1672445777034034307)
 
 ---
 
@@ -93,15 +97,15 @@ to-do-list-project-v01/
 
 ### Links Diretos para os Arquivos do Workspace
 * 🌐 **Módulos Principais**:
-  * [app.py](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/app.py)
-  * [templates/index.html](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/templates/index.html)
+  * [app.py](./app.py)
+  * [templates/index.html](./templates/index.html)
 * 🧪 **Sandbox Otimizado**:
-  * [demo_bad_code.py](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/demo_bad_code.py)
-  * [review_demo_bad_code.py](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/review_demo_bad_code.py)
+  * [demo_bad_code.py](./demo_bad_code.py)
+  * [review_demo_bad_code.py](./review_demo_bad_code.py)
 * ⚙️ **Configuração de Dependências e Ambiente**:
-  * [.env.example](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/.env.example)
-  * [requirements.txt](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/requirements.txt)
-  * [.gitignore](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/.gitignore)
+  * [.env.example](./.env.example)
+  * [requirements.txt](./requirements.txt)
+  * [.gitignore](./.gitignore)
 
 ---
 
@@ -143,13 +147,13 @@ source venv/bin/activate
 ```
 
 ### Passo 2: Instalar as Dependências
-Instale os pacotes definidos no [requirements.txt](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/requirements.txt):
+Instale os pacotes definidos no [requirements.txt](./requirements.txt):
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Passo 3: Inicializar Variáveis de Ambiente
-Crie uma cópia do arquivo [.env.example](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/.env.example) e preencha as variáveis locais em seu `.env`:
+Crie uma cópia do arquivo [.env.example](./.env.example) e preencha as variáveis locais em seu `.env`:
 ```bash
 cp .env.example .env
 ```
@@ -237,7 +241,7 @@ Após inspeção detalhada do código-fonte e análise de segurança e infraestr
 * **Recomendação**: Migrar a persistência de dados para um banco gerenciado, como **Google Cloud SQL (PostgreSQL/MySQL)** ou um banco de documentos como **Firestore/Datastore**, permitindo escalonamento horizontal sem perda de dados.
 
 ### 2. Implementação de ORM e Proteção contra SQL Injection
-* **Problema Identificado**: Em [`app.py`](file:///c:/Users/Usu%C3%A1rio/Documents/antigravity-git/to-do-list-project-v01/app.py), as interações com o SQLite são feitas com strings SQL montadas dinamicamente. Embora parâmetros seguros sejam usados em inserts, a ausência de um framework centralizado para manipulação de modelos dificulta a validação estática e o crescimento do esquema.
+* **Problema Identificado**: Em [`app.py`](./app.py), as interações com o SQLite são feitas com strings SQL montadas dinamicamente. Embora parâmetros seguros sejam usados em inserts, a ausência de um framework centralizado para manipulação de modelos dificulta a validação estática e o crescimento do esquema.
 * **Recomendação**: Adotar o **SQLAlchemy** ou **Flask-SQLAlchemy** como ORM para gerenciar o esquema de dados, abstraindo consultas e garantindo validações robustas em tempo de design.
 
 ### 3. Gerenciamento Seguro de Credenciais de Produção via Secret Manager
